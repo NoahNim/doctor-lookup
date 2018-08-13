@@ -8,13 +8,13 @@ $(document).ready(function(){
     event.preventDefault();
     let search = $('#doctor-value').val();
     console.log(search);
-    let promise = new doctorLookup.searchByDoctor(search);
+    let promise = new doctorLookup().searchByDoctor(search);
     console.log(promise);
 
     promise.then(function(response){
       let body = JSON.parse(response);
       if (body.data.length === 0) {
-        return $(".errors").text("Unable to find a doctor.")
+        return $("#error").text("Unable to find a doctor.")
       }
         body.data.forEach(function(item) {
         let name = item.profile.first_name + " " + item.profile.last_name + ", " + item.profile.title;
