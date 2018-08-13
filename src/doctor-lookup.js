@@ -1,10 +1,13 @@
 import $ from 'jquery';
 
 export class doctorLookup {
-    searchByDoctor(doctor){
-      let promise = Promise(function(resolve, reject) {
+  constructor(search){
+    this.search = search;
+    }
+    searchByDoctor(search){
+      let promise = new Promise(function(resolve, reject) {
         let request = new XMLHttpRequest();
-        let url = `https://api.betterdoctor.com/2016-03-01/doctors?name=${doctor}&location=wa-seattle&skip=0&limit=25&user_key=${process.env.exports.apiKey}`;
+        let url = `https://api.betterdoctor.com/2016-03-01/doctors?name=${search}&location=wa-seattle&skip=0&limit=25&user_key=${process.env.exports.apiKey}`;
         request.onload = function() {
           if (this.status === 200) {
             resolve(request.response);
@@ -12,9 +15,11 @@ export class doctorLookup {
             reject(Error(request.statusText));
           }
         }
+        console.log(promise);
         request.open("GET", url, true);
         request.send();
       });
+      console.log(promise);
       promise.then(function(response){
         let body = JSON.parse(response);
         if (body.data.length === 0) {
@@ -31,7 +36,7 @@ export class doctorLookup {
         }), function(error) {
         $('#error').text(`There was an error processing your request: ${error.message}`);
           };
-        });
+        })
       };
   //   searchByCondition(condition) {
   //   return new Promise(function(resolve, reject) {
