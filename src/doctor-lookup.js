@@ -1,5 +1,3 @@
-import $ from 'jquery';
-
 export class doctorLookup {
   constructor(search){
     this.search = search;
