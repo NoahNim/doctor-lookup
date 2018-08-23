@@ -12,7 +12,7 @@ $(document).ready(function(){
     console.log(userSearch);
 
       let request = new XMLHttpRequest();
-          let url = `https://api.betterdoctor.com/2016-03-01/doctors?name=${userSearch}&query=${conditionSearch}&location=wa-seattle&skip=0&limit=25&user_key=${process.env.API_KEY}`
+          let url = `https://api.betterdoctor.com/2016-03-01/doctors?name=${userSearch}&query=${conditionSearch}&location=wa-seattle&skip=0&limit=25&user_key=${process.env.exports.apiKey}`
 
           request.onreadystatechange = function() {
           if (this.readyState === 4 && this.status === 200) {
@@ -34,7 +34,7 @@ $(document).ready(function(){
             response.data.forEach(function(info) {
               $("#result").append(`
                 <ul>
-                  <li><h2>Name: ${info.profile.last_name}, ${info.profile.first_name}, ${info.profile.title}</h2></li>
+                  <li><h2>Name: ${info.profile.last_name}, ${info.profile.first_name}, ${info.profile.title}</></li>
                   <li>Phone number: ${info.practices[0].phones[0].number}</li>
                   <li>Address: ${info.practices[0].visit_address.street}, ${info.practices[0].visit_address.city}, ${info.practices[0].visit_address.state}, ${info.practices[0].visit_address.zip}</li>
                   <li>Specialties: ${info.specialties[0].name}</li>
